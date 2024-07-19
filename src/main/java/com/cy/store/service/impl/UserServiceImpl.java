@@ -3,8 +3,7 @@ package com.cy.store.service.impl;
 import com.cy.store.entity.User;
 import com.cy.store.mapper.UserMapper;
 import com.cy.store.service.IUserService;
-import com.cy.store.service.ex.InsertException;
-import com.cy.store.service.ex.UsernameDuplicateException;
+import com.cy.store.service.ex.*;
 import com.cy.store.util.XssUntil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +43,28 @@ public class UserServiceImpl implements IUserService {
             throw new InsertException("插入数据时出现未知错误");
         }
 
+    }
+
+    @Override
+    public User login(String username, String password) {
+
+        User result = userMapper.findByUsername(username);
+        if(result == null && result.getIsDelete() == 1) {
+            throw new UserNotFoundException("没有该用户");
+        }
+
+        //传入的密码
+        String salt = result.getSalt();
+        String newPassword = XssUntil.getMD5Password(password, salt);
+
+        if(!result.getPassword().equals(newPassword)) {
+            throw new PasswordNotMatchException("密码不对");
+        }
+
+        User user = new User();
+        user.setUid(result.getUid());
+        user.setUsername(result.getUsername());
+        user.setAvatar(result.getAvatar());
+        return user;
     }
 }

@@ -7,5 +7,10 @@ public interface IUserService {
     /**
      * 注册功能
      */
-    public void reg(User user);
+    void reg(User user);
+
+    /**
+     * 登录功能
+     */
+    User login(String username, String password);
 }

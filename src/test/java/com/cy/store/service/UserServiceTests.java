@@ -26,4 +26,10 @@ public class UserServiceTests {
             System.out.println(e.getClass().getSimpleName());
         }
     }
+
+    @Test
+    public void test1() {
+        User test01 = userService.login("test01", "123");
+        System.out.println(test01);
+    }
 }
