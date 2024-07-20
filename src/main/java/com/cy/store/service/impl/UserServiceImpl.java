@@ -42,7 +42,6 @@ public class UserServiceImpl implements IUserService {
         if(insert != 1) {
             throw new InsertException("插入数据时出现未知错误");
         }
-
     }
 
     @Override
@@ -67,4 +66,26 @@ public class UserServiceImpl implements IUserService {
         user.setAvatar(result.getAvatar());
         return user;
     }
+
+    @Override
+    public void changePassword(Integer uid, String username, String oldPassword, String newPassword) {
+
+        User result = userMapper.findByUid(uid);
+        if(result == null || result.getIsDelete() == 1) {
+            throw new UserNotFoundException("没有该用户");
+        }
+        
+        String password = XssUntil.getMD5Password(result.getPassword(), result.getSalt());
+        if (password.equals(oldPassword)) {
+            throw new PasswordNotMatchException("密码错误");
+        }
+
+        String md5Password = XssUntil.getMD5Password(newPassword, result.getSalt());
+        Integer rows = userMapper.updatePassword(uid, md5Password, username, new Date());
+        if(rows != 1) {
+            throw new UpdateException("修改密码时遇到错误");
+        }
+    }
+
+
 }

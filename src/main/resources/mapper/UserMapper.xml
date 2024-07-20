@@ -23,8 +23,18 @@
             #{isDelete},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime}
         )
     </insert>
+    <update id="updatePassword">
+        UPDATE t_user SET
+                        password=#{password},
+                        modified_user=#{modifiedUser},
+                        modified_time=#{modifiedTime}
+        WHERE uid=#{uid}
+    </update>
     <!-- id等于接口中的方法名, resultType等于方法的返回值类型 -->
-    <select id="findByUsername" resultMap="UserEntityMap">
+    <select id="findByUsername" resultType="com.cy.store.entity.User">
          SELECT * FROM t_user WHERE username=#{username}
+    </select>
+    <select id="findByUid" resultType="com.cy.store.entity.User">
+        SELECT * FROM t_user WHERE uid=#{uid}
     </select>
 </mapper>

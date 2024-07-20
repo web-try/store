@@ -13,4 +13,9 @@ public interface IUserService {
      * 登录功能
      */
     User login(String username, String password);
+
+    /**
+     * 修改密码
+     */
+    void changePassword(Integer uid,String username,String oldPassword,String newPassword);
 }

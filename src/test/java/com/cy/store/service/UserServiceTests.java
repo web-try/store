@@ -32,4 +32,9 @@ public class UserServiceTests {
         User test01 = userService.login("test01", "123");
         System.out.println(test01);
     }
+
+    @Test
+    public void test2() {
+        userService.changePassword(17, "test01","333","123");
+    }
 }

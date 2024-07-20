@@ -163,6 +163,7 @@
 					success:function (json) {
 						if(json.state === 200) {
 							alert("登录成功");
+							//跳转到的页面
 							location.href="index.html";
 						}
 						else{
@@ -170,11 +171,10 @@
 						}
 					},
 					error:function (xhr){
-						alert(("注册时产生未知错误"+xhr.message))
+						alert(("登录时产生未知错误"+xhr.message))
 					}
 				})
 			});
-
 		</script>
 	</body>
 </html>

@@ -1,10 +1,8 @@
 package com.cy.store.controller;
 
-import com.cy.store.service.ex.InsertException;
-import com.cy.store.service.ex.PasswordNotMatchException;
-import com.cy.store.service.ex.UserNotFoundException;
-import com.cy.store.service.ex.UsernameDuplicateException;
+import com.cy.store.service.ex.*;
 import com.cy.store.util.JsonResult;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.sql.rowset.serial.SerialException;
@@ -26,7 +24,7 @@ public class BaseController {
         }else if (e instanceof InsertException) {
             result.setState(5000);
             result.setMessage("注册时发生未知异常请重新注册");
-        }else if (e instanceof UserNotFoundException) {
+        }else if (e instanceof UserNotFoundException || e instanceof UpdateException) {
             result.setState(5001);
             result.setMessage("注册时发生未知异常请重新注册");
         }else if (e instanceof PasswordNotMatchException) {
@@ -35,4 +33,13 @@ public class BaseController {
         }
         return result;
     }
+
+    protected final Integer getuidFromSession(HttpSession session) {
+        return Integer.valueOf(session.getAttribute("uid").toString());
+    }
+
+    protected final String getUsernameFromSession(HttpSession session) {
+        return session.getAttribute("username").toString();
+    }
+
 }
