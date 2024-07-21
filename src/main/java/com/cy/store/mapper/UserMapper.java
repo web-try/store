@@ -41,4 +41,13 @@ public interface UserMapper {
                            Date modifiedTime);
 
 
+    /**
+     * 修改个人信息
+     */
+    Integer updateInfoByUid(User user);
+
+    /**
+     * 上传头像
+     */
+    Integer updateAvatarByUid(Integer uid, String avatar, String modifiedUser, Date modifiedTime);
 }

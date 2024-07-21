@@ -30,6 +30,24 @@
                         modified_time=#{modifiedTime}
         WHERE uid=#{uid}
     </update>
+    <update id="updateInfoByUid">
+        UPDATE t_user
+        SET
+            phone=#{phone},
+            email=#{email},
+            gender=#{gender},
+            modified_user=#{modifiedUser},
+            modified_time=#{modifiedTime}
+        WHERE uid=#{uid}
+    </update>
+    <update id="updateAvatarByUid">
+        UPDATE t_user
+        SET
+            avatar=#{avatar},
+            modified_user=#{modifiedUser},
+            modified_time=#{modifiedTime}
+        WHERE uid=#{uid}
+    </update>
     <!-- id等于接口中的方法名, resultType等于方法的返回值类型 -->
     <select id="findByUsername" resultType="com.cy.store.entity.User">
          SELECT * FROM t_user WHERE username=#{username}

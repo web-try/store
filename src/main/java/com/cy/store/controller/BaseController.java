@@ -26,10 +26,10 @@ public class BaseController {
             result.setMessage("注册时发生未知异常请重新注册");
         }else if (e instanceof UserNotFoundException || e instanceof UpdateException) {
             result.setState(5001);
-            result.setMessage("注册时发生未知异常请重新注册");
+            result.setMessage("没找到用户名");
         }else if (e instanceof PasswordNotMatchException) {
             result.setState(5002);
-            result.setMessage("注册时发生未知异常请重新注册");
+            result.setMessage("密码不匹配");
         }
         return result;
     }

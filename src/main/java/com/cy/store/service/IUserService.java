@@ -18,4 +18,11 @@ public interface IUserService {
      * 修改密码
      */
     void changePassword(Integer uid,String username,String oldPassword,String newPassword);
+
+    /**
+     * 根据uid查找数据返回前端
+     */
+    User getByUid(Integer uid);
+
+    void  changeInfo(Integer uid, String username, User user);
 }

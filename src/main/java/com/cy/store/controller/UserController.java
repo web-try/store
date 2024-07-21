@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 
     @Autowired
     private IUserService userService;
@@ -22,7 +22,7 @@ public class UserController extends BaseController{
     @RequestMapping("/reg")
     public JsonResult<Void> reg(User user) {
 //        System.out.println(user);
-        if("".equals(user.getUsername()) || "".equals(user.getPassword())) {
+        if ("".equals(user.getUsername()) || "".equals(user.getPassword())) {
             return new JsonResult<>(nullNameOrPassword);
         }
         userService.reg(user);
@@ -30,27 +30,40 @@ public class UserController extends BaseController{
     }
 
     /**
-     *
      * @param username 前端传来的用户名字
      * @param password 前端传来的用户密码
-     * @param session 全局session对象springmvc自动维护
+     * @param session  全局session对象springmvc自动维护
      */
     @RequestMapping("/login")
     public JsonResult<User> login(String username, String password, HttpSession session) {
         User data = userService.login(username, password);
-        session.setAttribute("uid",data.getUid());
-        session.setAttribute("username",data.getUsername());
+        session.setAttribute("uid", data.getUid());
+        session.setAttribute("username", data.getUsername());
 
         System.out.println(getUsernameFromSession(session));
         System.out.println(getuidFromSession(session));
-        return new JsonResult<User>(OK,data);
+        return new JsonResult<>(OK, data);
     }
 
     @RequestMapping("change_password")
     public JsonResult<Void> changePassword(String oldPassword, String newPassword, HttpSession session) {
         Integer uid = getuidFromSession(session);
         String name = getUsernameFromSession(session);
-        userService.changePassword(uid,name,oldPassword,newPassword);
+        userService.changePassword(uid, name, oldPassword, newPassword);
+        return new JsonResult<>(OK);
+    }
+
+    @RequestMapping("get_by_uid")
+    public JsonResult<User> getByUid(HttpSession session) {
+        User date = userService.getByUid(getuidFromSession(session));
+        return new JsonResult<>(OK, date);
+    }
+
+    @RequestMapping("change_info")
+    public JsonResult<Void> changeInfo(User user, HttpSession session) {
+        Integer uid = getuidFromSession(session);
+        String username = getUsernameFromSession(session);
+        userService.changeInfo(uid,username,user);
         return new JsonResult<>(OK);
     }
 

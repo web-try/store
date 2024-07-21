@@ -1,5 +1,6 @@
 package com.cy.store.service.impl;
 
+import com.cy.store.controller.BaseController;
 import com.cy.store.entity.User;
 import com.cy.store.mapper.UserMapper;
 import com.cy.store.service.IUserService;
@@ -87,5 +88,37 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+    @Override
+    public User getByUid(Integer uid) {
+        User result = userMapper.findByUid(uid);
+        if(result == null || result.getIsDelete() == 1) {
+            throw new UserNotFoundException("没有该用户");
+        }
 
+        User user = new User();
+        user.setUsername(result.getUsername());
+        user.setEmail(result.getEmail());
+        user.setPhone(result.getPhone());
+        user.setGender(result.getGender());
+        return user;
+    }
+
+    @Override
+    public void changeInfo(Integer uid, String username, User user) {
+        User result = userMapper.findByUid(uid);
+        if(result == null || result.getIsDelete() == 1) {
+            throw new UserNotFoundException("没有该用户");
+        }
+
+        result.setModifiedUser(username);
+        result.setModifiedTime(new Date());
+        result.setPhone(user.getPhone());
+        result.setEmail(user.getEmail());
+        result.setGender(user.getGender());
+
+        Integer rows = userMapper.updateInfoByUid(result);
+        if(rows != 1) {
+            throw new UpdateException("没有该用户");
+        }
+    }
 }

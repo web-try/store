@@ -147,7 +147,7 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label">电话号码：</label>
 								<div class="col-md-8">
-									<input `id="phone" name="phone" type="text" class="form-control" placeholder="请输入电话号码" value="13311311313">
+									<input id="phone" name="phone" type="text" class="form-control" placeholder="请输入电话号码" value="13311311313">
 								</div>
 							</div>
 							<div class="form-group">
@@ -262,6 +262,71 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+		<script type="application/javascript">
+			$("#btn-change-info").click(function (){
+				//2发送ajax异步注册功能
+				$.ajax({
+					url:"/users/change_info",
+					type:"POST",
+					/**
+					 * $("#form-reg").serialize()选中表单
+					 * 将表单中的元素的值序列换返回给后端返回
+					 * 格式为:username=xxx&password=xxx
+					 */
+					data: $("#form-change-info").serialize(),
+					dataType:"JSON",
+					/**
+					 * @param json:接收后端发回来的请求
+					 */
+					success:function (json) {
+						if(json.state === 200) {
+							alert("修改用户信息成功");
+							location.href = "userdata.html"
+						}
+						else{
+							alert("修改用户信息失败")
+						}
+					},
+					error:function (xhr){
+						alert(("修改用户信息产生未知错误"+xhr.message))
+					}
+				})
+			});
+			$(document).ready(function () {
+				$.ajax({
+					url:"/users/get_by_uid",
+					type:"GET",
+					/**
+					 * $("#form-reg").serialize()选中表单
+					 * 将表单中的元素的值序列换返回给后端返回
+					 * 格式为:username=xxx&password=xxx
+					 */
+					data: $("#form-change-info").serialize(),
+					dataType:"JSON",
+					/**
+					 * @param json:接收后端发回来的请求
+					 */
+					success:function (json) {
+						if(json.state === 200) {
+							console.log(json.data.username)
+							$("#username").val(json.data.username);
+							$("#phone").val(json.data.phone);
+							$("#email").val(json.data.email);
+							let redio = json.data.gender == 0 ?
+									$("#gender-female"):$("#gender-male");
+							redio.prop("checked","checked");
+						}
+						else{
+							alert("没有该用户")
+						}
+					},
+					error:function (xhr){
+						alert(("查询用户时发生未知错误"+xhr.message))
+					}
+				})
+			})
+
+		</script>
 	</body>
 
 </html>
