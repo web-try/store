@@ -121,4 +121,17 @@ public class UserServiceImpl implements IUserService {
             throw new UpdateException("没有该用户");
         }
     }
+
+    @Override
+    public void changeAvatar(Integer uid, String avatar, String username) {
+
+        User result = userMapper.findByUid(uid);
+        if(result == null || result.getIsDelete() == 1) {
+            throw new UserNotFoundException("没有该用户");
+        }
+        Integer rows = userMapper.updateAvatarByUid(uid, avatar, username, new Date());
+        if(rows != 1) {
+            throw new UpdateException("没有该用户");
+        }
+    }
 }

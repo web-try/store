@@ -284,11 +284,11 @@
 							location.href = "userdata.html"
 						}
 						else{
-							alert("修改用户信息失败")
+							alert(json.message)
 						}
 					},
 					error:function (xhr){
-						alert(("修改用户信息产生未知错误"+xhr.message))
+						alert(("修改用户信息产生未知错误"))
 					}
 				})
 			});
@@ -317,11 +317,11 @@
 							redio.prop("checked","checked");
 						}
 						else{
-							alert("没有该用户")
+							alert(json.message)
 						}
 					},
 					error:function (xhr){
-						alert(("查询用户时发生未知错误"+xhr.message))
+						alert(("查询用户时发生未知错误"))
 					}
 				})
 			})

@@ -167,11 +167,11 @@
 							location.href="index.html";
 						}
 						else{
-							alert("登录失败")
+							alert(json.message)
 						}
 					},
 					error:function (xhr){
-						alert(("登录时产生未知错误"+xhr.response.message+"--------"+xhr.status))
+						alert(("登录时产生未知错误"))
 					}
 				})
 			});

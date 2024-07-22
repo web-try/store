@@ -1,35 +1,49 @@
 package com.cy.store.controller;
 
+import com.cy.store.controller.ex.*;
+import com.cy.store.enums.AppHttpCodeEnum;
 import com.cy.store.service.ex.*;
 import com.cy.store.util.JsonResult;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.sql.rowset.serial.SerialException;
-
 public class BaseController {
-    public static final int OK = 200;
 
-    public static final int nullNameOrPassword = 999;
+    //public static final int nullNameOrPassword = 999;
     /**
      * ExceptionHandler此注解作用是当出现异常时会统一拦截到此注解的方法中
      * 出现异常时此方法充当返回值直接返回给前端
      */
-    @ExceptionHandler(SerialException.class)
+    @ExceptionHandler({ServiceException.class,FileUploadException.class})
     public JsonResult<Void> handleException(Throwable e) {
         JsonResult<Void> result = new JsonResult<>();
         if(e instanceof UsernameDuplicateException) {
-            result.setState(4000);
-            result.setMessage("用户名被占用");
+            result.setState(AppHttpCodeEnum.USERNAMEDUPLICATE.getCode());
+            result.setMessage(AppHttpCodeEnum.USERNAMEDUPLICATE.getMessage());
         }else if (e instanceof InsertException) {
-            result.setState(5000);
-            result.setMessage("注册时发生未知异常请重新注册");
+            result.setState(AppHttpCodeEnum.INSERT.getCode());
+            result.setMessage(AppHttpCodeEnum.INSERT.getMessage());
         }else if (e instanceof UserNotFoundException || e instanceof UpdateException) {
-            result.setState(5001);
-            result.setMessage("没找到用户名");
+            result.setState(AppHttpCodeEnum.USERNOTFOUND.getCode());
+            result.setMessage(AppHttpCodeEnum.USERNOTFOUND.getMessage());
         }else if (e instanceof PasswordNotMatchException) {
-            result.setState(5002);
-            result.setMessage("密码不匹配");
+            result.setState(AppHttpCodeEnum.PASSWORDNOTMATCH.getCode());
+            result.setMessage(AppHttpCodeEnum.PASSWORDNOTMATCH.getMessage());
+        }else if (e instanceof FileEmptyException) {
+            result.setState(AppHttpCodeEnum.FILEEMPTY.getCode());
+            result.setMessage(AppHttpCodeEnum.FILEEMPTY.getMessage());
+        } else if (e instanceof FileSizeException) {
+            result.setState(AppHttpCodeEnum.FILESIZE.getCode());
+            result.setMessage(AppHttpCodeEnum.FILESIZE.getMessage());
+        } else if (e instanceof FileTypeException) {
+            result.setState(AppHttpCodeEnum.FILETYPE.getCode());
+            result.setMessage(AppHttpCodeEnum.FILETYPE.getMessage());
+        } else if (e instanceof FileStateException) {
+            result.setState(AppHttpCodeEnum.FILESTATE.getCode());
+            result.setMessage(AppHttpCodeEnum.FILESTATE.getMessage());
+        } else if (e instanceof FileUploadIOException) {
+            result.setState(AppHttpCodeEnum.FILEUPLOADIO.getCode());
+            result.setMessage(AppHttpCodeEnum.FILEUPLOADIO.getMessage());
         }
         return result;
     }

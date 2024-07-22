@@ -162,11 +162,11 @@
 							alert("请输入完整用户名和密码")
 						}
 						else{
-							alert("注册失败")
+							alert(json.message)
 						}
 					},
 					error:function (xhr){
-						alert(("注册时产生未知错误"+xhr.status))
+						alert(("注册时产生未知错误"))
 					}
 				})
 			});

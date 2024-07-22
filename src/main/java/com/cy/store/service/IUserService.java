@@ -24,5 +24,13 @@ public interface IUserService {
      */
     User getByUid(Integer uid);
 
+    /**
+     * 修改个人资料
+     */
     void  changeInfo(Integer uid, String username, User user);
+
+    /**
+     * 修改头像
+     */
+    void changeAvatar(Integer uid, String avatar, String username);
 }
