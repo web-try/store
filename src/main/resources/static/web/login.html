@@ -165,6 +165,7 @@
 							alert("登录成功");
 							//跳转到的页面
 							location.href="index.html";
+							$.cookie("avatar",json.data.avatar,{expires:7})
 						}
 						else{
 							alert(json.message)

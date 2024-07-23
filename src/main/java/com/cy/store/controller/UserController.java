@@ -5,6 +5,7 @@ import com.cy.store.entity.User;
 import com.cy.store.enums.AppHttpCodeEnum;
 import com.cy.store.service.IUserService;
 import com.cy.store.util.JsonResult;
+import com.cy.store.util.finals;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,9 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
+
+import static com.cy.store.util.finals.AVATAR_MAX_SIZE;
+import static com.cy.store.util.finals.AVATAR_TYPES;
 
 @RestController
 @RequestMapping("/users")
@@ -86,19 +91,6 @@ public class UserController extends BaseController {
         return new JsonResult<>(AppHttpCodeEnum.SUCCESS.getCode());
     }
 
-    /** 头像文件大小的上限值(10MB) */
-    public static final int AVATAR_MAX_SIZE = 10 * 1024 * 1024;
-    /** 允许上传的头像的文件类型 */
-    public static final List<String> AVATAR_TYPES = new ArrayList<String>();
-
-    /** 初始化允许上传的头像的文件类型 */
-    static {
-        AVATAR_TYPES.add("image/jpeg");
-        AVATAR_TYPES.add("image/png");
-        AVATAR_TYPES.add("image/bmp");
-        AVATAR_TYPES.add("image/gif");
-    }
-
 
     /**
      * 上传头像
@@ -124,6 +116,15 @@ public class UserController extends BaseController {
         }
 
         String parent = session.getServletContext().getRealPath("upload");
+
+//        String resourcesPath = "src/main/resources/static/images/upload";
+//        Path path = Paths.get(resourcesPath);
+//        try {
+//            // 创建文件夹
+//            Files.createDirectories(path);
+//        } catch (IOException e) {
+//            System.err.println("创建文件夹失败: " + e.getMessage());
+//        }
         File dir = new File(parent);
         if(!dir.exists()) {
             dir.mkdirs();
@@ -153,7 +154,7 @@ public class UserController extends BaseController {
             throw new FileUploadIOException("上传文件时读写错误，请稍后重新尝试");
         }
 
-        String avatar = "/upload/" +filename;
+        String avatar = "/upload/"+filename;
         userService.changeAvatar(getuidFromSession(session), avatar, getUsernameFromSession(session));
 
         return new JsonResult<>(AppHttpCodeEnum.SUCCESS.getCode(),avatar);

@@ -3,7 +3,13 @@ spring:
     url: jdbc:mysql://localhost:3306/store
     username: root
     password: 1721373535
+  ##设置上传文件最大大小
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 15MB
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
+    ##驼峰
     map-underscore-to-camel-case: true
