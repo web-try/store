@@ -11,9 +11,12 @@ public enum AppHttpCodeEnum {
 
     INSERT(5000,"注册时发生未知异常请重新注册"),
 
-    USERNOTFOUND(5001,"没有该用户"),
+    USERNOTFOUND(4001,"没有该用户"),
 
-    PASSWORDNOTMATCH(5002,"密码不匹配"),
+    PASSWORDNOTMATCH(4002,"密码不匹配"),
+
+    AddressCountLimit(4003,"用户地址超出上限"),
+    UPDATE(5001, "修改时发生异常"),
 
     FILEEMPTY(6000,"上传文件为空"),
 

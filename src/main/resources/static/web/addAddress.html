@@ -19,8 +19,10 @@
 		<link rel="stylesheet" type="text/css" href="../css/layout.css" />
 		<link rel="stylesheet" type="text/css" href="../css/top.css" />
 		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
-		<script type="text/javascript" src="../js/distpicker.data.js"></script>
-		<script type="text/javascript" src="../js/distpicker.js"></script>
+		<!--
+		 <script type="text/javascript" src="../js/distpicker.data.js"></script>
+		 <script type="text/javascript" src="../js/distpicker.js"></script>
+		 -->
 	</head>
 
 	<body>
@@ -287,6 +289,37 @@
 			</div>
 		</footer>
 		<!--页脚结束-->
+		<script type="application/javascript">
+			//1.监听注册按钮是否被点击,点击执行方法
+			$("#btn-add-new-address").click(function (){
+				//2发送ajax异步注册功能
+				$.ajax({
+					url:"/addresses/add_new_address",
+					type:"POST",
+					/**
+					 * $("#form-reg").serialize()选中表单
+					 * 将表单中的元素的值序列换返回给后端返回
+					 * 格式为:username=xxx&password=xxx
+					 */
+					data: $("#form-add-new-address").serialize(),
+					dataType:"JSON",
+					/**
+					 * @param json:接收后端发回来的请求
+					 */
+					success:function (json) {
+						if(json.state === 200) {
+							alert("新增成功");
+						}
+						else{
+							alert(json.message)
+						}
+					},
+					error:function (xhr){
+						alert(("新增时产生未知错误"))
+					}
+				})
+			});
+		</script>
 	</body>
 
 </html>

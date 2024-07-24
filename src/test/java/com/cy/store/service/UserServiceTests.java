@@ -1,5 +1,6 @@
 package com.cy.store.service;
 
+import com.cy.store.entity.Address;
 import com.cy.store.entity.User;
 import com.cy.store.service.ex.ServiceException;
 import org.junit.Test;
@@ -14,6 +15,13 @@ public class UserServiceTests {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IAddressService addressService;
+
+    @Autowired
+    private IDistrictService districtService;
+
     @Test
     public void test() {
         User user = new User();
@@ -29,8 +37,7 @@ public class UserServiceTests {
 
     @Test
     public void test1() {
-        User test01 = userService.login("test01", "123");
-        System.out.println(test01);
+        System.out.println(districtService.getByParent("86").toString());
     }
 
     @Test

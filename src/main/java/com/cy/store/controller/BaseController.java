@@ -23,13 +23,19 @@ public class BaseController {
         }else if (e instanceof InsertException) {
             result.setState(AppHttpCodeEnum.INSERT.getCode());
             result.setMessage(AppHttpCodeEnum.INSERT.getMessage());
-        }else if (e instanceof UserNotFoundException || e instanceof UpdateException) {
+        }else if (e instanceof UserNotFoundException) {
             result.setState(AppHttpCodeEnum.USERNOTFOUND.getCode());
             result.setMessage(AppHttpCodeEnum.USERNOTFOUND.getMessage());
         }else if (e instanceof PasswordNotMatchException) {
             result.setState(AppHttpCodeEnum.PASSWORDNOTMATCH.getCode());
             result.setMessage(AppHttpCodeEnum.PASSWORDNOTMATCH.getMessage());
-        }else if (e instanceof FileEmptyException) {
+        }else if (e instanceof AddressCountLimitException) {
+            result.setState(AppHttpCodeEnum.AddressCountLimit.getCode());
+            result.setMessage(AppHttpCodeEnum.AddressCountLimit.getMessage());
+        } else if (e instanceof UpdateException) {
+            result.setState(AppHttpCodeEnum.UPDATE.getCode());
+            result.setMessage(AppHttpCodeEnum.UPDATE.getMessage());
+        } else if (e instanceof FileEmptyException) {
             result.setState(AppHttpCodeEnum.FILEEMPTY.getCode());
             result.setMessage(AppHttpCodeEnum.FILEEMPTY.getMessage());
         } else if (e instanceof FileSizeException) {
