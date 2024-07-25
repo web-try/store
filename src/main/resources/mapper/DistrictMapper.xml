@@ -8,4 +8,7 @@
         SELECT code,name FROM t_dict_district WHERE parent = #{parent}
         ORDER BY code
     </select>
+    <select id="findNameByCode" resultType="java.lang.String">
+        SELECT name FROM t_dict_district WHERE code = #{code}
+    </select>
 </mapper>

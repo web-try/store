@@ -290,9 +290,71 @@
 		</footer>
 		<!--页脚结束-->
 		<script type="application/javascript">
+			let defaultOption = "<option value='0'>---- 请选择 ----</option>";
+			$(document).ready(function (){
+				$("#province-list").append(defaultOption)
+				showProvinceList(86,"#province-list")
+				$("#city-list").append(defaultOption)
+				$("#area-list").append(defaultOption)
+			})
+			/**
+			 * change监控前面组件是否发生改变发生改变触发此方法
+			 */
+			$("#province-list").change(function () {
+				//获取code值
+				let parent = $("#province-list").val();
+				//清空下拉列表
+				$("#city-list").empty()
+				$("#area-list").empty()
+				//填充默认值
+				$("#city-list").append(defaultOption)
+				$("#area-list").append(defaultOption)
+				if (parent == 0) {
+					return;
+				}
+				showProvinceList(parent,"#city-list")
+			})
+
+			$("#city-list").change(function () {
+				let parent = $("#city-list").val();
+				//清空下拉列表
+				$("#area-list").empty()
+				//填充默认值
+				$("#area-list").append(defaultOption)
+				if (parent == 0) {
+					return;
+				}
+				showProvinceList(parent,"#area-list")
+			})
+			/**
+			 * 查询具体操作
+			 */
+			function  showProvinceList(parent,formList) {
+				$.ajax({
+					url:"/districts/",
+					type:"POST",
+					data: "parent="+parent,
+					dataType:"JSON",
+					/**
+					 * @param json:接收后端发回来的请求
+					 */
+					success:function (json) {
+						if(json.state === 200) {
+							let list =json.data;
+							for (let i = 0; i < list.length; i++) {
+								//拼接出新的下拉列表
+								let opt = "<option value='"+list[i].code+"'>"+list[i].name+"</option>";
+								$(formList).append(opt)
+							}
+						}
+						else{
+							alert(json.message)
+						}
+					}
+				})
+			}
 			//1.监听注册按钮是否被点击,点击执行方法
 			$("#btn-add-new-address").click(function (){
-				//2发送ajax异步注册功能
 				$.ajax({
 					url:"/addresses/add_new_address",
 					type:"POST",
