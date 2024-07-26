@@ -4,8 +4,7 @@ import com.cy.store.entity.Address;
 import com.cy.store.mapper.AddressMapper;
 import com.cy.store.mapper.DistrictMapper;
 import com.cy.store.service.IAddressService;
-import com.cy.store.service.ex.AddressCountLimitException;
-import com.cy.store.service.ex.InsertException;
+import com.cy.store.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +51,59 @@ public class AddressServiceImpl implements IAddressService {
     @Override
     public List<Address> getByUid(Integer uid) {
         return addressMapper.findByUid(uid);
+    }
+
+    @Override
+    public void setDefault(Integer aid, Integer uid) {
+        Address result = addressMapper.findByAid(aid);
+        if (result == null) {
+            throw new AddressNotFoundException("没有这个地址修改异常");
+        }
+
+        if(!result.getUid().equals(uid)) {
+            throw new AccessDeniedException("非法访问数据");
+        }
+
+        Integer rows = addressMapper.updateNonDefault(uid);
+        if(rows < 1) {
+            throw new UpdateException("更新异常");
+        }
+
+        rows = addressMapper.updateDefaultByAid(aid);
+
+        if (rows != 1) {
+            throw new UpdateException("更新异常");
+        }
+
+    }
+
+    @Override
+    public void delete(Integer aid, Integer uid) {
+        Address result = addressMapper.findByAid(aid);
+        if (result == null) {
+            throw new AddressNotFoundException("没有这个地址修改异常");
+        }
+
+        if(!result.getUid().equals(uid)) {
+            throw new AccessDeniedException("非法访问数据");
+        }
+
+        Integer rows = addressMapper.deleteByAid(aid);
+        if(rows != 1) {
+            throw new DeleteException("删除数据时产生错误");
+        }
+
+        //如果删除的是默认数据就取出来一条重新设置成默认数据
+        if(result.getIsDefault() == 1) {
+            List<Address> addressList = addressMapper.findByUid(uid);
+            if(addressList.isEmpty()) {
+                return;
+            }
+            Address address = addressList.get(0);
+            rows = addressMapper.updateDefaultByAid(address.getAid());
+            if(rows != 1) {
+                throw new UpdateException("设置新的默认地址时产生错误");
+            }
+        }
     }
 }

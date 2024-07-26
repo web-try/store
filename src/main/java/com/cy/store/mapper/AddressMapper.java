@@ -11,4 +11,12 @@ public interface AddressMapper {
     Integer countByUid(Integer uid);
 
     List<Address> findByUid(Integer uid);
+
+    Address findByAid(Integer aid);
+
+    Integer updateNonDefault(Integer uid);
+
+    Integer updateDefaultByAid(Integer aid);
+
+    Integer deleteByAid(Integer aid);
 }

@@ -16,7 +16,13 @@ public enum AppHttpCodeEnum {
     PASSWORDNOTMATCH(4002,"密码不匹配"),
 
     AddressCountLimit(4003,"用户地址超出上限"),
+
+    ADDRESSNOTFOUND(4004,"收货地址数据不存在的异常"),
+
+    ACCESSDENIED(4005,"非法访问"),
     UPDATE(5001, "修改时发生异常"),
+
+    DELETE(5002, "删除时产生异常"),
 
     FILEEMPTY(6000,"上传文件为空"),
 

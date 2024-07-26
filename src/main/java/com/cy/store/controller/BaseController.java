@@ -32,9 +32,19 @@ public class BaseController {
         }else if (e instanceof AddressCountLimitException) {
             result.setState(AppHttpCodeEnum.AddressCountLimit.getCode());
             result.setMessage(AppHttpCodeEnum.AddressCountLimit.getMessage());
+        }else if (e instanceof AddressNotFoundException) {
+            result.setState(AppHttpCodeEnum.ADDRESSNOTFOUND.getCode());
+            result.setMessage(AppHttpCodeEnum.ADDRESSNOTFOUND.getMessage());
+        }else if (e instanceof AccessDeniedException) {
+            result.setState(AppHttpCodeEnum.ACCESSDENIED.getCode());
+            result.setMessage(AppHttpCodeEnum.ACCESSDENIED.getMessage());
         } else if (e instanceof UpdateException) {
             result.setState(AppHttpCodeEnum.UPDATE.getCode());
             result.setMessage(AppHttpCodeEnum.UPDATE.getMessage());
+        }
+        else if (e instanceof DeleteException) {
+            result.setState(AppHttpCodeEnum.DELETE.getCode());
+            result.setMessage(AppHttpCodeEnum.DELETE.getMessage());
         } else if (e instanceof FileEmptyException) {
             result.setState(AppHttpCodeEnum.FILEEMPTY.getCode());
             result.setMessage(AppHttpCodeEnum.FILEEMPTY.getMessage());

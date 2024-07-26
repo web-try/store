@@ -13,6 +13,21 @@
                 #{areaCode}, #{zip}, #{address}, #{phone}, #{tel}, #{tag}, #{isDefault}, #{createdUser},
                 #{createdTime}, #{modifiedUser}, #{modifiedTime})
     </insert>
+    <update id="updateNonDefault">
+        UPDATE t_address
+        SET is_default = 0
+        WHERE uid = #{uid}
+    </update>
+    <update id="updateDefaultByAid">
+        UPDATE t_address
+        SET is_default = 1
+        WHERE aid = #{aid}
+    </update>
+    <delete id="deleteByAid">
+        DELETE
+        FROM t_address
+        WHERE aid = #{aid}
+    </delete>
 
     <select id="countByUid" resultType="java.lang.Integer">
         SELECT count(*)
@@ -20,9 +35,14 @@
         WHERE uid = #{uid}
     </select>
     <select id="findByUid" resultType="com.cy.store.entity.Address">
-        SELECT name, phone, tag, address, province_name, city_name, area_name, zip
+        SELECT *
         FROM t_address
         WHERE uid = #{uid}
         ORDER BY is_default DESC, created_time DESC
+    </select>
+    <select id="findByAid" resultType="com.cy.store.entity.Address">
+        SELECT *
+        FROM t_address
+        WHERE aid = #{aid}
     </select>
 </mapper>

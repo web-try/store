@@ -17,4 +17,13 @@ public interface IAddressService {
      */
     List<Address> getByUid(Integer uid);
 
+    /**
+     * 修改某个用户的某条收获地址为默认收货地址
+     */
+    void setDefault(Integer aid, Integer uid);
+
+    /**
+     * 删除地址数据
+     */
+    void delete(Integer aid, Integer uid);
 }
