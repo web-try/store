@@ -41,8 +41,7 @@ public class BaseController {
         } else if (e instanceof UpdateException) {
             result.setState(AppHttpCodeEnum.UPDATE.getCode());
             result.setMessage(AppHttpCodeEnum.UPDATE.getMessage());
-        }
-        else if (e instanceof DeleteException) {
+        } else if (e instanceof DeleteException) {
             result.setState(AppHttpCodeEnum.DELETE.getCode());
             result.setMessage(AppHttpCodeEnum.DELETE.getMessage());
         } else if (e instanceof FileEmptyException) {
