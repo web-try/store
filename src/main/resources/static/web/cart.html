@@ -20,7 +20,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/top.css" />
 		<link rel="stylesheet" type="text/css" href="../css/footer.css" />
 		<link rel="stylesheet" type="text/css" href="../css/cart.css" />
-		<script src="../js/cart.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="../js/cart.js" type="text/javascript" charset="utf-8"></script> -->
 	</head>
 
 	<body>
@@ -268,12 +268,77 @@
 		</footer>
 		<!--页脚结束-->
 		<script type="text/javascript">
-			$(function() {
+			/*$(function() {
 				//返回链接
 				$(".link-account").click(function() {
 					location.href = "orderConfirm.html";
 				})
-			})
+			})*/
+			$(document).ready(function() {
+				showCartList();
+			});
+
+
+			function showCartList() {
+				//清空tbody标签数据
+				$("#cart-list").empty();
+				$.ajax({
+					url: "/carts",
+					type: "get",
+					dataType: "JSON",
+					success: function(json) {
+						let list = json.data;
+						for(let i = 0; i < list.length; i++) {
+							let tr = '<tr>\n' +
+									'<td>\n' +
+									'<input name="cids" value="#{cid}" type="checkbox" class="ckitem" />\n' +
+									'</td>\n' +
+									'<td><img src="..#{image}collect.png" class="img-responsive" /></td>\n' +
+									'<td>#{title}#{msg}</td>\n' +
+									'<td>¥<span id="goodsPrice#{cid}">#{singlePrice}</span></td>\n' +
+									'<td>\n' +
+									'<input id="price-#{cid}" type="button" value="-" class="num-btn" onclick="reduceNum(1)" />\n' +
+									'<input id="goodsCount#{cid}" type="text" size="2" readonly="readonly" class="num-text" value="#{num}">\n' +
+									'<input id="price+#{cid}" class="num-btn" type="button" value="+" onclick="addNum(#{cid})" />\n' +
+									'</td>\n' +
+									'<td><span id="goodsCast#{cid}">#{totalPrice}</span></td>\n' +
+									'<td>\n' +
+									'<input type="button" onclick="delCartItem(this)" class="cart-del btn btn-default btn-xs" value="删除" />\n' +
+									'</td>\n' +
+									'</tr>'
+							tr = tr.replaceAll("#{cid}", list[i].cid);
+							tr = tr.replaceAll("#{image}", list[i].image);
+							tr = tr.replaceAll("#{title}", list[i].title);
+							tr = tr.replaceAll("#{msg}", list[i].realPrice);
+							tr = tr.replaceAll("#{num}", list[i].num);
+							tr = tr.replace("#{singlePrice}", list[i].price);
+							tr = tr.replace("#{totalPrice}", list[i].num*list[i].price);
+
+							$("#cart-list").append(tr);
+						}
+					},
+					error: function(xhr) {
+
+					}
+				})
+			}
+
+			function addNum(cid) {
+				$.ajax({
+					url: "/carts/" + cid + "/num/add",
+					type: "POST",
+					dataType: "JSON",
+					success:function (json) {
+						if (json.state == 200) {
+                            $("#goodsCount"+cid).val(json.data);
+							let price = $("#goodsPrice"+cid).html();
+							$("#goodsCast"+cid).html(price * json.data);
+                        } else {
+                            alert(json.message);
+                        }
+                    },
+				})
+			}
 		</script>
 	</body>
 

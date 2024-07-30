@@ -31,4 +31,30 @@
         ORDER BY
             t1.created_time DESC
     </select>
+    <select id="findByCid" resultType="com.cy.store.entity.Cart">
+        SELECT *
+        FROM
+            t_cart
+        WHERE
+            cid=#{cid}
+    </select>
+    <select id="findVoByCid" resultType="com.cy.store.Vo.CartVo">
+        SELECT
+            cid,
+            uid,
+            pid,
+            t1.price,
+            t1.num,
+            t2.title,
+            t2.image,
+            t2.price AS realPrice
+        FROM t_cart t1 LEFT JOIN t_product t2 ON t1.pid = t2.id
+        WHERE t1.cid IN (
+            <foreach collection="array" item="cid" separator=",">
+                #{cid}
+            </foreach>
+            )
+        ORDER BY
+            t1.created_time DESC
+    </select>
 </mapper>

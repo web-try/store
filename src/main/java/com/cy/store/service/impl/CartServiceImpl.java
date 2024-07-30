@@ -5,7 +5,9 @@ import com.cy.store.entity.Cart;
 import com.cy.store.mapper.CartMapper;
 import com.cy.store.mapper.ProductMapper;
 import com.cy.store.service.ICartService;
+import com.cy.store.service.ex.AccessDeniedException;
 import com.cy.store.service.ex.InsertException;
+import com.cy.store.service.ex.ProductNotFoundException;
 import com.cy.store.service.ex.UpdateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,5 +57,32 @@ public class CartServiceImpl implements ICartService {
     @Override
     public List<CartVo> getVoByUid(Integer uid) {
         return cartMapper.findByUid(uid);
+    }
+
+    @Override
+    public Integer addNum(Integer cid, Integer uid, String username) {
+        Cart result = cartMapper.findByCid(cid);
+        if(result == null){
+            throw new ProductNotFoundException("数据不存在");
+        }
+
+        if(!result.getUid().equals(uid)){
+            throw new AccessDeniedException("非法访问");
+        }
+
+        Integer num = result.getNum() + 1;
+        Integer row = cartMapper.updateNumByCid(cid, num, new Date());
+        if(row != 1){
+            throw new UpdateException("更新时错误");
+        }
+        //返回新的总量
+        return num;
+    }
+
+    @Override
+    public List<CartVo> getVoByCid(Integer uid, Integer[] cids) {
+        List<CartVo> list = cartMapper.findVoByCid(cids);
+        list.removeIf(cartVo -> !cartVo.getUid().equals(uid));
+        return list;
     }
 }
