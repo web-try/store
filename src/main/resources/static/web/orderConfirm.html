@@ -252,7 +252,38 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				showCartList();
+				showAddressList();
 			});
+
+			function showAddressList() {
+				//清空tbody标签数据
+				$("#address-list").empty();
+				$.ajax({
+					url: "/addresses",
+					type: "GET",
+					dataType: "JSON",
+					success: function(json) {
+						if(json.state == 200) {
+							let list = json.data;
+							for(let i = 0; i < list.length; i++) {
+								let address = list[i].provinceName + list[i].cityName + list[i].areaName + list[i].address
+								let opt = "<option value='#{aid}'>#{name}&nbsp;&nbsp;&nbsp;#{tag}&nbsp;&nbsp;&nbsp;#{address}&nbsp;&nbsp;&nbsp;#{phone}</option>"
+								opt = opt.replace("#{aid}", list[i].aid);
+								opt = opt.replace("#{name}", list[i].name);
+								opt = opt.replace("#{tag}", list[i].tag);
+								opt = opt.replace("#{address}", address);
+								opt = opt.replace("#{phone}", list[i].phone);
+								$("#address-list").append(opt)
+
+							}
+						}
+						else {
+							alert(json.state)
+						}
+
+					}
+				})
+			}
 
 
 			function showCartList() {
