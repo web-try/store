@@ -329,6 +329,29 @@
 					}
 				})
 			}
+
+			$("#btn-create-order").click(function() {
+				let aid = $("#address-list").val();
+				let cids = location.search.substr(1);
+				$.ajax({
+					url: "/orders/create",
+					type: "POST",
+					data: "aid="+aid+"&"+ cids,
+					dataType: "JSON",
+					//data:
+					success: function(json) {
+						if(json.state == 200) {
+							alert("订单创建成功！")
+							location.href = "payment.html"
+						}
+						else {
+							alert(json.state)
+						}
+
+					}
+				})
+			})
+
 		</script>
 	</body>
 

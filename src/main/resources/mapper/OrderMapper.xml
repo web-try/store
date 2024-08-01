@@ -5,7 +5,7 @@
 <!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
 <mapper namespace="com.cy.store.mapper.OrderMapper">
 
-    <insert id="insertOrder">
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="oid">
         INSERT INTO t_order (
             uid, recv_name, recv_phone, recv_province, recv_city, recv_area, recv_address,
             total_price,status, order_time, pay_time, created_user, created_time, modified_user,
