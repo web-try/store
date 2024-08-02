@@ -18,4 +18,6 @@ public interface CartMapper {
     Cart findByCid(Integer cid);
 
     List<CartVo> findVoByCid(Integer[] cids);
+
+    Integer deleteNumByCid(Integer cid);
 }

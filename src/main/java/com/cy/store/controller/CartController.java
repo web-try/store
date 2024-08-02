@@ -37,6 +37,18 @@ public class CartController extends BaseController{
         return new JsonResult<>(AppHttpCodeEnum.SUCCESS.getCode(),data);
     }
 
+    @RequestMapping("{cid}/num/minus")
+    public JsonResult<Integer> minusNum(@PathVariable Integer cid, HttpSession session) {
+        Integer data = cartService.minusNum(cid, getuidFromSession(session), getUsernameFromSession(session));
+        return new JsonResult<>(AppHttpCodeEnum.SUCCESS.getCode(),data);
+    }
+
+    @RequestMapping("{cid}/num/delete")
+    public JsonResult<Void> deleteNum(@PathVariable Integer cid) {
+        cartService.deleteNum(cid);
+        return new JsonResult<>(AppHttpCodeEnum.SUCCESS.getCode());
+    }
+
     @RequestMapping("list")
     public JsonResult<List<CartVo>> getVoByCid(Integer[] cids, HttpSession session) {
         List<CartVo> data = cartService.getVoByCid(getuidFromSession(session),cids);

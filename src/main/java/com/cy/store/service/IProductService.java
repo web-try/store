@@ -14,4 +14,9 @@ public interface IProductService {
      * 热销界面跳转具体逻辑
      */
     Product findById(Integer id);
+
+    /**
+     * 新到好货界面跳转具体逻辑
+     */
+    List<Product> findNewList();
 }

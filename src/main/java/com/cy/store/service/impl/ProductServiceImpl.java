@@ -22,4 +22,9 @@ public class ProductServiceImpl implements IProductService {
     public Product findById(Integer id) {
         return productMapper.findById(id);
     }
+
+    @Override
+    public List<Product> findNewList() {
+        return productMapper.findNewList();
+    }
 }

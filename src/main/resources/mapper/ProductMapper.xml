@@ -17,4 +17,13 @@
     <select id="findById" resultType="com.cy.store.entity.Product">
         SELECT * FROM t_product WHERE id=#{id}
     </select>
+    <select id="findNewList" resultType="com.cy.store.entity.Product">
+        SELECT *
+        FROM t_product
+        WHERE
+            status=1
+        ORDER BY
+            created_time DESC
+        LIMIT 0,4
+    </select>
 </mapper>

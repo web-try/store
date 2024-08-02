@@ -25,6 +25,12 @@ public class ProductController {
         return new JsonResult<>(AppHttpCodeEnum.SUCCESS.getCode(), data);
     }
 
+    @RequestMapping("new_list")
+    public JsonResult<List<Product>> getNewList() {
+        List<Product> data = productService.findNewList();
+        return new JsonResult<>(AppHttpCodeEnum.SUCCESS.getCode(), data);
+    }
+
     @GetMapping("{id}/details")
     public JsonResult<Product> getById(@PathVariable("id") Integer id) {
         return new JsonResult<>(AppHttpCodeEnum.SUCCESS.getCode(), productService.findById(id));

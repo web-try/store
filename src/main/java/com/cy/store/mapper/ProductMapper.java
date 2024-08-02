@@ -8,4 +8,6 @@ public interface ProductMapper {
     List<Product> findHotList();
 
     Product findById(Integer id);
+
+    List<Product> findNewList();
 }

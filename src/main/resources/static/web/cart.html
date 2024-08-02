@@ -36,7 +36,7 @@
 				<!--快捷选项-->
 				<div class="col-md-9 top-item">
 					<ul class="list-inline pull-right">
-						<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>
+						<!--<li><a href="favorites.html"><span class="fa fa-heart"></span>&nbsp;收藏</a></li>-->
 						<li class="li-split">|</li>
 						<li><a href="orders.html"><span class="fa fa-file-text"></span>&nbsp;订单</a></li>
 						<li class="li-split">|</li>
@@ -71,11 +71,11 @@
 						<a href="#"></a>
 					</li>
 					<li class="active"><a href="index.html"><span class="fa fa-home"></span></a></li>
-					<li><a href="#">秒杀</a></li>
+					<!--<li><a href="#">秒杀</a></li>
 					<li><a href="#">优惠券</a></li>
 					<li><a href="#">电脑VIP</a></li>
 					<li><a href="#">外卖</a></li>
-					<li><a href="#">超市</a></li>
+					<li><a href="#">超市</a></li>-->
 				</ul>
 			</div>
 			<div class="col-md-6">
@@ -102,7 +102,7 @@
 								<thead>
 									<tr>
 										<th width="8%">
-											<input type="checkbox" class="ckall" onclick="checkall(this)" />全选</th>
+											<!--<input type="checkbox" class="ckall" onclick="checkall(this)" />全选</th>-->
 										<th width="110"></th>
 										<th width="29%">商品</th>
 										<th width="11%">单价</th>
@@ -166,11 +166,11 @@
 								</tbody>
 							</table>
 							<div class="total-bar">
-								<a href="javascript:selDelCart()" class="cart-del-sel btn btn-default btn-xs">删除所选商品</a>
+								<!--<a href="javascript:selDelCart()" class="cart-del-sel btn btn-default btn-xs">删除所选商品</a>
 								<span class="pull-right">已选商品
 								<span id="selectCount">0</span>件 总价¥
 								<span id="selectTotal">0</span>元
-								</span>
+								</span>-->
 							</div>
 							<div>
 								<span class="pull-right">
@@ -185,25 +185,24 @@
 		<!--页脚开始-->
 		<div class="clearfix"></div>
 		<footer class="footer">
-			<!-- 品质保障，私人定制等-->
-			<div class="text-center rights container">
-				<div class="col-md-offset-2 col-md-2">
-					<span class="fa fa-thumbs-o-up"></span>
-					<p>品质保障</p>
-				</div>
-				<div class="col-md-2">
-					<span class="fa fa-address-card-o"></span>
-					<p>私人订制</p>
-				</div>
-				<div class="col-md-2">
-					<span class="fa fa-graduation-cap"></span>
-					<p>学生特供</p>
-				</div>
-				<div class="col-md-2">
-					<span class="fa fa-bitcoin"></span>
-					<p>专属特权</p>
-				</div>
-			</div>
+			<!-- <div class="text-center rights container">
+                <div class="col-md-offset-2 col-md-2">
+                    <span class="fa fa-thumbs-o-up"></span>
+                    <p>品质保障</p>
+                </div>
+                <div class="col-md-2">
+                    <span class="fa fa-address-card-o"></span>
+                    <p>私人订制</p>
+                </div>
+                <div class="col-md-2">
+                    <span class="fa fa-graduation-cap"></span>
+                    <p>学生特供</p>
+                </div>
+                <div class="col-md-2">
+                    <span class="fa fa-bitcoin"></span>
+                    <p>专属特权</p>
+                </div>
+            </div>-->
 			<!--联系我们、下载客户端等-->
 			<div class="container beforeBottom">
 				<div class="col-md-offset-1 col-md-3">
@@ -218,31 +217,31 @@
 									<p>买家帮助</p>
 								</a>
 							</li>
-							<li><a href="#">新手指南</a></li>
-							<li><a href="#">服务保障</a></li>
-							<li><a href="#">常见问题</a></li>
+							<li><a href="">新手指南</a></li>
+							<li><a href="">服务保障</a></li>
+							<li><a href="">常见问题</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4">
 						<ul>
 							<li>
-								<a href="#">
+								<a href="">
 									<p>商家帮助</p>
 								</a>
 							</li>
-							<li><a href="#">商家入驻</a></li>
-							<li><a href="#">商家后台</a></li>
+							<li><a href="">商家入驻</a></li>
+							<li><a href="">商家后台</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4">
 						<ul>
 							<li>
-								<a href="#">
+								<a href="">
 									<p>关于我们</p>
 								</a>
 							</li>
-							<li><a href="#">关于圆心</a></li>
-							<li><a href="#">联系我们</a></li>
+							<li><a href="">关于---</a></li>
+							<li><a href="">联系我们</a></li>
 							<li>
 								<span class="fa fa-wechat"></span>
 								<span class="fa fa-weibo"></span>
@@ -263,7 +262,7 @@
 			</div>
 			<!-- 页面底部-备案号 #footer -->
 			<div class="col-md-12 text-center bottom">
-				Copyright © 2022 dnsc.cn All Rights Reserved 京ICP备08963888号-45 <a target="_blank" style="font-size: 12px" href="http://www.dnsc.cn/">圆心科技集团有限公司</a> 版权所有
+				<a target="_blank">-----------</a> 版权所有
 			</div>
 		</footer>
 		<!--页脚结束-->
@@ -297,13 +296,13 @@
 									'<td>#{title}#{msg}</td>\n' +
 									'<td>¥<span id="goodsPrice#{cid}">#{singlePrice}</span></td>\n' +
 									'<td>\n' +
-									'<input id="price-#{cid}" type="button" value="-" class="num-btn" onclick="reduceNum(1)" />\n' +
+									'<input id="price-#{cid}" type="button" value="-" class="num-btn" onclick="minusNum(#{cid})" />\n' +
 									'<input id="goodsCount#{cid}" type="text" size="2" readonly="readonly" class="num-text" value="#{num}">\n' +
 									'<input id="price+#{cid}" class="num-btn" type="button" value="+" onclick="addNum(#{cid})" />\n' +
 									'</td>\n' +
 									'<td><span id="goodsCast#{cid}">#{totalPrice}</span></td>\n' +
 									'<td>\n' +
-									'<input type="button" onclick="delCartItem(this)" class="cart-del btn btn-default btn-xs" value="删除" />\n' +
+									'<input type="button" onclick="deleteNum(#{cid})" class="cart-del btn btn-default btn-xs" value="删除" />\n' +
 									'</td>\n' +
 									'</tr>'
 							tr = tr.replaceAll("#{cid}", list[i].cid);
@@ -337,6 +336,41 @@
                             alert(json.message);
                         }
                     },
+				})
+			}
+			function minusNum(cid) {
+				$.ajax({
+					url: "/carts/" + cid + "/num/minus",
+					type: "POST",
+					dataType: "JSON",
+					success:function (json) {
+						if (json.state == 200) {
+							if(json.data == 0){
+								location.href = "cart.html";
+								return
+							}
+							$("#goodsCount"+cid).val(json.data);
+							let price = $("#goodsPrice"+cid).html();
+							$("#goodsCast"+cid).html(price * json.data);
+						} else {
+							alert(json.message);
+						}
+					},
+				})
+			}
+
+			function deleteNum(cid) {
+				$.ajax({
+					url: "/carts/" + cid + "/num/delete",
+					type: "POST",
+					dataType: "JSON",
+					success:function (json) {
+						if (json.state == 200) {
+							location.href = "cart.html";
+						} else {
+							alert(json.message);
+						}
+					},
 				})
 			}
 		</script>

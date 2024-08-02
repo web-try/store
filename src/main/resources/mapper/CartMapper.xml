@@ -13,6 +13,9 @@
         SET num = #{num}, modified_time = #{date}
         WHERE cid = #{cid}
     </update>
+    <delete id="deleteNumByCid">
+        DELETE FROM t_cart WHERE cid=#{cid}
+    </delete>
     <select id="findByUidAndPid" resultType="com.cy.store.entity.Cart">
         SELECT * FROM t_cart WHERE uid=#{uid} AND pid=#{pid}
     </select>

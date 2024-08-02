@@ -21,8 +21,15 @@ public interface ICartService {
      */
     Integer addNum(Integer cid, Integer uid, String username);
 
+    Integer minusNum(Integer cid, Integer uid, String username);
+
     /**
      * 显示勾选购物车数据
      */
     List<CartVo> getVoByCid(Integer uid, Integer[] cids);
+
+    /**
+     * 删除购物车某商品
+     */
+    void deleteNum(Integer cid);
 }
